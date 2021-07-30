@@ -12,6 +12,7 @@ function App() {
   const [theme, setTheme] = useState('material');
 
   const handleThemeTypeChange = (e) => setTheme(e.target.value);
+  const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -31,10 +32,10 @@ function App() {
     <div className="App">
       <div className="select">
         <select onChange={handleThemeTypeChange}>
-          <option value={theme}>{theme}</option>
+          <option className="currentSelected" value={theme}>{capitalizeFirstLetter(theme)} (current theme)</option>
           {
             Themes.map((item, index) => (
-              <option key={`theme-${index}-${item.theme}`} value={item.theme}>{item.theme}</option>
+              <option key={`theme-${index}-${item.theme}`} value={item.theme}>{capitalizeFirstLetter(item.theme)}</option>
             ))
           }
         </select>

@@ -4,6 +4,7 @@ import useLocalStorage from './components/hooks/useLocalStorage';
 import { Themes } from './components/Theme';
 import './ThemeImports';
 import { Default } from './components/Default';
+import Navbar from './components/navigation/Navbar';
 
 function App() {
   const [html, setHtml] = useLocalStorage('html', Default[0].html);
@@ -31,6 +32,9 @@ function App() {
 
   return (
     <div className="App">
+      <div>
+        <Navbar />
+      </div>
       <div className="select">
         <select onChange={handleThemeTypeChange}>
           <option className="currentSelected" value={theme}>{capitalizeFirstLetter(theme)} (current theme)</option>

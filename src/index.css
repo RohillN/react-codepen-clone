@@ -81,14 +81,9 @@ select::-ms-expand {
 }
 /* Custom Select */
 .select {
-  position: absolute;
   display: flex;
-  width: 20em;
   height: 2em;
   line-height: 2;
-  top: 0;
-  right: 0;
-  margin-top: 15px;
   background: #2c3e50;
   overflow: hidden;
   border-radius: 0.25em;
@@ -96,7 +91,7 @@ select::-ms-expand {
 select {
   flex: 1;
   padding: 0 1rem;
-  color: #fff;
+  color: hsl(0, 0%, 85%);
   cursor: pointer;
   font-size: 16px;
   font-family: "Roboto", sans-serif;
@@ -104,12 +99,10 @@ select {
 /* Arrow */
 .select::after {
   content: "\25BC";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  padding: 0 1em;
-  background: hsl(225, 6%, 13%);
+  padding-right: 1rem;
+  left: 0;
+  color: hsl(0, 0%, 65%);
+  background-color: hsl(225, 6%, 13%);
   cursor: pointer;
   pointer-events: none;
   -webkit-transition: 0.25s all ease;
@@ -118,7 +111,11 @@ select {
 }
 /* Transition */
 .select:hover::after {
-  color: #f39c12;
+  color: white;
+}
+
+select::hover {
+  padding: 100px;
 }
 
 .currentSelected {

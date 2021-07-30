@@ -100,7 +100,7 @@ export const Default = [
             }
           }
           `,
-        javascript: `Refernce: https://codepen.io/saransh/pen/BKJun`,
+        javascript: `// Refernce: https://codepen.io/saransh/pen/BKJun`,
         theme: "ayu-dark",
     },
 ]

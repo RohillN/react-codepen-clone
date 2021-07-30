@@ -16,6 +16,7 @@ export default function Editor(props) {
     } = props;
 
     const [open, setOpen] = useState(true);
+    const [theme, setTheme] = useState("default")
 
     function handleChange(editor, data, value) {
         onChange(value);
@@ -41,7 +42,7 @@ export default function Editor(props) {
                     lint: true,
                     mode: language,
                     lineNumbers: true,
-                    theme: 'material'
+                    theme: theme
                 }}
             />
         </div>

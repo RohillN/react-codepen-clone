@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import 'codemirror/lib/codemirror.css';
-import 'codemirror/theme/material.css';
 import 'codemirror/mode/xml/xml';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/css/css';
@@ -13,10 +12,10 @@ export default function Editor(props) {
         displayName,
         value,
         onChange,
+        theme,
     } = props;
 
     const [open, setOpen] = useState(true);
-    const [theme, setTheme] = useState("default")
 
     function handleChange(editor, data, value) {
         onChange(value);
@@ -26,10 +25,10 @@ export default function Editor(props) {
         <div className={`editor-container ${open ? "" : "collapsed"}`}>
             <div className="editor-title">
                 {displayName}
-                <button 
-                type="button"
-                className="expand-collapsed-btn"
-                onClick={() => setOpen(prevOpen => !prevOpen)}>
+                <button
+                    type="button"
+                    className="expand-collapsed-btn"
+                    onClick={() => setOpen(prevOpen => !prevOpen)}>
                     {open ? <AiIcons.AiOutlineShrink size={22} /> : <AiIcons.AiOutlineExpandAlt size={22} />}
                 </button>
             </div>

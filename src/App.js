@@ -29,17 +29,16 @@ function App() {
 
   return (
     <div className="App">
-      <p>Select a theme:
-        <select onChange={e => handleThemeTypeChange(e)}>
-          <option>{theme}</option>
-          <hr />
+      <div className="select">
+        <select onChange={handleThemeTypeChange}>
+          <option value={theme}>{theme}</option>
           {
             Themes.map((item, index) => (
               <option key={`theme-${index}-${item.theme}`} value={item.theme}>{item.theme}</option>
             ))
           }
         </select>
-      </p>
+      </div>
       <div className="pane top-pane">
         <Editor
           language="xml"

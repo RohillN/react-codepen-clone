@@ -11,13 +11,15 @@ export default function useLocalStorage(key, initialValue) {
             // Get from local storage by key
             const jsonValue = localStorage.getItem(prefixedKey);
             // if data exists, Parse stored json
-            if (jsonValue !== '' || jsonValue !== null) {
+            if (jsonValue !== null) {
                 return JSON.parse(jsonValue);
             }
             // if initialValue is function return function
             // else return initialValue
             if (typeof initialValue === 'function') {
                 return initialValue()
+            } else {
+                return initialValue;
             }
         } catch (error) {
             console.log(error);

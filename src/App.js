@@ -3,17 +3,17 @@ import Editor from './components/Editor';
 import useLocalStorage from './components/hooks/useLocalStorage';
 import { Themes } from './components/Theme';
 import './ThemeImports';
+import { Default } from './components/Default';
 
 function App() {
-  const [html, setHtml] = useLocalStorage('html', '');
-  const [css, setCss] = useLocalStorage('css', '');
-  const [javascript, setJavascript] = useLocalStorage('javascript', '');
+  const [html, setHtml] = useLocalStorage('html', Default[0].html);
+  const [css, setCss] = useLocalStorage('css',  Default[0].css);
+  const [javascript, setJavascript] = useLocalStorage('javascript', Default[0].javascript);
   const [srcDoc, setSrcDoc] = useState('');
-  const [theme, setTheme] = useLocalStorage('theme', 'default');
-  const [loading, setLoading] = useState(true);
+  const [theme, setTheme] = useLocalStorage('theme', Default[0].theme);
 
   const handleThemeTypeChange = (e) => setTheme(e.target.value);
-  // const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
+  const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -30,14 +30,13 @@ function App() {
   }, [html, css, javascript])
 
   return (
-    // loading && theme !== null ? <p>Loading...</p> :
       <div className="App">
         <div className="select">
           <select onChange={handleThemeTypeChange}>
-            <option className="currentSelected" value={theme}>{theme} (current theme)</option>
+            <option className="currentSelected" value={theme}>{capitalizeFirstLetter(theme)} (current theme)</option>
             {
               Themes.map((item, index) => (
-                <option key={`theme-${index}-${item.theme}`} value={item.theme}>{item.theme}</option>
+                <option key={`theme-${index}-${item.theme}`} value={item.theme}>{capitalizeFirstLetter(item.theme)}</option>
               ))
             }
           </select>

@@ -7,17 +7,20 @@ export default function useLocalStorage(key, initialValue) {
 
     // get the data from local storage
     const [value, setValue] = useState(() => {
-        const jsonValue = localStorage.getItem(prefixedKey);
-
-        // if data exists, parse json data
-        if (jsonValue !== '' || jsonValue !== null) {
-            return JSON.parse(jsonValue);
-        }
-        // if initial value is function return function
-        // else return value
-        if (typeof initialValue === 'function') {
-            return initialValue()
-        } else {
+        try {
+            // Get from local storage by key
+            const jsonValue = localStorage.getItem(prefixedKey);
+            // if data exists, Parse stored json
+            if (jsonValue !== '' || jsonValue !== null) {
+                return JSON.parse(jsonValue);
+            }
+            // if initialValue is function return function
+            // else return initialValue
+            if (typeof initialValue === 'function') {
+                return initialValue()
+            }
+        } catch (error) {
+            console.log(error);
             return initialValue;
         }
     })
@@ -28,5 +31,5 @@ export default function useLocalStorage(key, initialValue) {
     }, [prefixedKey, value])
 
     // return value and function
-    return [value, setValue]
+    return [value, setValue];
 }

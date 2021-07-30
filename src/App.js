@@ -9,10 +9,11 @@ function App() {
   const [css, setCss] = useLocalStorage('css', '');
   const [javascript, setJavascript] = useLocalStorage('javascript', '');
   const [srcDoc, setSrcDoc] = useState('');
-  const [theme, setTheme] = useState('material');
+  const [theme, setTheme] = useLocalStorage('theme', 'default');
+  const [loading, setLoading] = useState(true);
 
   const handleThemeTypeChange = (e) => setTheme(e.target.value);
-  const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
+  // const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -29,49 +30,50 @@ function App() {
   }, [html, css, javascript])
 
   return (
-    <div className="App">
-      <div className="select">
-        <select onChange={handleThemeTypeChange}>
-          <option className="currentSelected" value={theme}>{capitalizeFirstLetter(theme)} (current theme)</option>
-          {
-            Themes.map((item, index) => (
-              <option key={`theme-${index}-${item.theme}`} value={item.theme}>{capitalizeFirstLetter(item.theme)}</option>
-            ))
-          }
-        </select>
-      </div>
-      <div className="pane top-pane">
-        <Editor
-          language="xml"
-          displayName="HTML"
-          value={html}
-          onChange={setHtml}
-          theme={theme} />
-        <Editor
-          language="css"
-          displayName="CSS"
-          value={css}
-          onChange={setCss}
-          theme={theme} />
-        <Editor
-          language="javascript"
-          displayName="JAVASCRIPT"
-          value={javascript}
-          onChange={setJavascript}
-          theme={theme} />
+    // loading && theme !== null ? <p>Loading...</p> :
+      <div className="App">
+        <div className="select">
+          <select onChange={handleThemeTypeChange}>
+            <option className="currentSelected" value={theme}>{theme} (current theme)</option>
+            {
+              Themes.map((item, index) => (
+                <option key={`theme-${index}-${item.theme}`} value={item.theme}>{item.theme}</option>
+              ))
+            }
+          </select>
+        </div>
+        <div className="pane top-pane">
+          <Editor
+            language="xml"
+            displayName="HTML"
+            value={html}
+            onChange={setHtml}
+            theme={theme} />
+          <Editor
+            language="css"
+            displayName="CSS"
+            value={css}
+            onChange={setCss}
+            theme={theme} />
+          <Editor
+            language="javascript"
+            displayName="JAVASCRIPT"
+            value={javascript}
+            onChange={setJavascript}
+            theme={theme} />
 
+        </div>
+        <div className="pane">
+          <iframe
+            srcDoc={srcDoc}
+            title="output"
+            sandbox="allow-scripts"
+            frameBorder="0"
+            width="100%"
+            height="100%"
+          />
+        </div>
       </div>
-      <div className="pane">
-        <iframe
-          srcDoc={srcDoc}
-          title="output"
-          sandbox="allow-scripts"
-          frameBorder="0"
-          width="100%"
-          height="100%"
-        />
-      </div>
-    </div>
   );
 }
 

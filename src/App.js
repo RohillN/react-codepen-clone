@@ -4,8 +4,8 @@ import useLocalStorage from './components/hooks/useLocalStorage';
 import { Default } from './components/Default';
 import './ThemeImports';
 import Panes from './components/Panes';
-import './components/Navbar.css';
-import * as SiIcons from 'react-icons/si';
+import Navbar from './components/navigation/Navbar';
+import NavItem from './components/navigation/NavItem';
 
 function App() {
   const [theme, setTheme] = useLocalStorage('theme', Default[0].theme);
@@ -14,36 +14,25 @@ function App() {
 
   return (
     <div className="App">
-      <header id="navbar">
-        <nav className="navbar-container container">
-          <a href="/" className="home-link">
-            <div><SiIcons.SiCoderwall className="navbar-logo" /></div>
-            Codepen Clone
-          </a>
-          <div className="navbar-menu">
-            <ul className="navbar-links">
-              <li className="navbar-item"><a className="navbar-link" href="/about">About</a></li>
-              <li className="navbar-item"><a className="navbar-link" href="/blog">Blog</a></li>
-              <li className="navbar-item"><a className="navbar-link" href="/careers">Careers</a></li>
-              <li className="navbar-item"><a className="navbar-link" href="/contact">Contact</a></li>
-              <li className="navbar-item">
-                <div className="select">
-                  <select onChange={handleThemeTypeChange}>
-                    <option className="currentSelected" value={theme}>{capitalizeFirstLetter(theme)} (current theme)</option>
-                    {
-                      Themes.map((item, index) => (
-                        <option key={`theme-${index}-${item.theme}`} value={item.theme}>{capitalizeFirstLetter(item.theme)}</option>
-                      ))
-                    }
-                  </select>
-                </div>
-              </li>
-            </ul>
+      <Navbar>
+        <NavItem>
+          <a className="navbar-link" href="/about">About</a>
+        </NavItem>
+        <NavItem>
+          <div className="select">
+            <select onChange={handleThemeTypeChange}>
+              <option className="currentSelected" value={theme}>{capitalizeFirstLetter(theme)} (current theme)</option>
+              {
+                Themes.map((item, index) => (
+                  <option key={`theme-${index}-${item.theme}`} value={item.theme}>{capitalizeFirstLetter(item.theme)}</option>
+                ))
+              }
+            </select>
           </div>
-        </nav>
-      </header>
+        </NavItem>
+      </Navbar>
       <Panes theme={theme} />
-    </div>
+    </div >
   );
 }
 
